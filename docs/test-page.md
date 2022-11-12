@@ -1,6 +1,6 @@
 layout: page
 title: "test-page"
-permalink: /basic-page
+permalink: /basic-page.html
 
 # Hello reader
 This is a basic page

@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "Some tests"
+title:  "Some tests in C++"
 date:   2023-04-10 13:00:00 +0100
-categories: random tests
+categories: random tests cpp
 ---
 In this post we will have a look at the possible markdown features and the source code highlighting of _jekyll_.
 

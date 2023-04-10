@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Some tests in C++"
+title:  "Another test"
 date:   2023-04-10 13:00:00 +0100
 categories: random tests cpp
 ---

@@ -1,0 +1,23 @@
+base_url = "https://gatosan.github.io"
+title = "GatoSan's Blog"
+build_search_index = true
+generate_feed = true
+minify_html = true
+
+theme = "apollo"
+
+[markdown]
+highlight_code = true
+highlight_theme = "ayu-dark"
+
+[extra]
+use_cdn = false
+theme = "auto"
+
+menu = [
+    { name = "/posts", url = "/posts", weight = 1},
+]
+
+socials = [
+    { name = "github", url = "https://github.com/GatoSan", icon = "github" },
+]

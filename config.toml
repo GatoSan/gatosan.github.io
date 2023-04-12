@@ -26,12 +26,11 @@ mathjax = true
 mathjax_dollar_inline_enable = true
 
 menu = [
-    { name = "/posts", url= "/posts", weight= 1 },
-    { name= "/projects", url= "/projects", weight= 2 },
-    { name= "/about", url= "/about", weight= 3 },
+    { name = "/posts", url = "/posts", weight = 1 },
+    { name = "/projects", url = "/projects", weight = 2 },
+    { name = "/about", url = "/about", weight = 3 },
 ]
 
 socials = [
-    { name= "twitter", url= "https://twitter.com/gatosan", icon= "twitter" },
-    { name= "github", url= "https://github.com/gatosan/", icon = "github" },
+    { name = "github", url= "https://github.com/gatosan/", icon = "github" },
 ]

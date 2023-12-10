@@ -3,7 +3,7 @@ base_url = "https://gatosan.github.io"
 title = "GatoSan Blog"
 
 # Whether to automatically compile all Sass files in the sass directory
-#compile_sass = true
+compile_sass = true
 
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
@@ -20,6 +20,7 @@ highlight_code = true
 highlight_theme = "ayu-dark"
 
 [extra]
+toc = true
 use_cdn = false
 theme = "auto"
 mathjax = true
@@ -34,3 +35,10 @@ menu = [
 socials = [
     { name = "github", url= "https://github.com/gatosan/", icon = "github" },
 ]
+
+custom_css = []
+
+#[extra.analytics]
+#enabled = true
+#goatcounter_user = "your_user"
+#goatcounter_host = "example.com"

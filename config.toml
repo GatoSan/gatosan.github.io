@@ -38,7 +38,9 @@ socials = [
 
 custom_css = []
 
-#[extra.analytics]
-#enabled = true
-#goatcounter_user = "your_user"
-#goatcounter_host = "example.com"
+[extra.analytics]
+enabled = true
+
+[extra.analytics.goatcounter]
+user = "gatosan"
+host = "goatcounter.com"

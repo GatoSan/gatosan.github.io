@@ -23,6 +23,7 @@ highlight_theme = "ayu-dark"
 toc = true
 use_cdn = false
 theme = "toggle"
+comment = false
 mathjax = true
 mathjax_dollar_inline_enable = true
 

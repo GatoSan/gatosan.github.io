@@ -22,7 +22,7 @@ highlight_theme = "ayu-dark"
 [extra]
 toc = true
 use_cdn = false
-theme = "auto"
+theme = "toggle"
 mathjax = true
 mathjax_dollar_inline_enable = true
 
@@ -43,4 +43,3 @@ enabled = true
 
 [extra.analytics.goatcounter]
 user = "gatosan"
-host = "goatcounter.com"

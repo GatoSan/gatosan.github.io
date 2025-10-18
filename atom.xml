@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>GatoSan Blog</title>
+    <link href="https://gatosan.github.io/atom.xml" rel="self" type="application/atom+xml"/>
+    <link href="https://gatosan.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-02-29T00:00:00+00:00</updated>
+    <id>https://gatosan.github.io/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Data security</title>
+        <published>2024-02-29T00:00:00+00:00</published>
+        <updated>2024-02-29T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://gatosan.github.io/posts/data-security/" type="text/html"/>
+        <id>https://gatosan.github.io/posts/data-security/</id>
+        
+        <content type="html">&lt;h2 id=&quot;format-drive-everything-done&quot;&gt;Format drive - everything done?&lt;&#x2F;h2&gt;
+&lt;p&gt;Unfortunately not. As it might seem on first glance that formatting solves the problem of removing data from a drive, it only creates a new partition whereas the data itself remains on the drive. There are many tools out in the field, that are able to recreate the original data from such kind of devices.&lt;&#x2F;p&gt;
+&lt;p&gt;To overcome this topic, I will show how someone can delete the data in a save way by using different Linux tools.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;preperation&quot;&gt;Preperation&lt;&#x2F;h2&gt;
+&lt;p&gt;Insert the new device (e.g. an USB stick) and check the device.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;lsblk
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;TODO - add info here&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; umount &#x2F;dev&#x2F;sda1
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;clean-up-the-device&quot;&gt;Clean up the device&lt;&#x2F;h2&gt;
+&lt;p&gt;TODO - info&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;use-the-dd-command&quot;&gt;Use the dd command&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; dd if=&#x2F;dev&#x2F;zero of=&#x2F;dev&#x2F;sda bs=4096 status=progress
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Info - enough for most use-cases. The more secure way comes here:&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; dd if=&#x2F;dev&#x2F;urandom of=&#x2F;dev&#x2F;sda bs=4096 status=progress
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In both cases -&amp;gt; &lt;em&gt;no space left on device&lt;&#x2F;em&gt; information&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;use-the-shred-command&quot;&gt;Use the shred command&lt;&#x2F;h3&gt;
+&lt;p&gt;By default three different runs with random data.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# basic command
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; shred&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -v&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;dev&#x2F;sda
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# overwrite the storage with zeros in the last run
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; shred&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -v -z&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;dev&#x2F;sda
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# use random information and reduce the number of runs to 2
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; shred&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -v -z --random-source&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span&gt;&#x2F;dev&#x2F;urandom&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -n2&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;dev&#x2F;sda
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;create-a-new-partition&quot;&gt;Create a new partition&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; fdisk&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -l
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Select the device&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; fdisk &#x2F;dev&#x2F;sda
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;TODO - show commands in detail&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; mkfs.vfat&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -F&lt;&#x2F;span&gt;&lt;span&gt; 32 &#x2F;dev&#x2F;sda1
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;hiding-data&quot;&gt;Hiding data&lt;&#x2F;h2&gt;
+&lt;p&gt;TODO - information&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# install the package
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt update
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;sudo&lt;&#x2F;span&gt;&lt;span&gt; apt install steghide
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# embed a file into an image
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;steghide&lt;&#x2F;span&gt;&lt;span&gt; embed&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -cf&lt;&#x2F;span&gt;&lt;span&gt; myimage.jpg&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -ef&lt;&#x2F;span&gt;&lt;span&gt; secretfile.txt
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# get information from the prepared file without extraction
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;steghide&lt;&#x2F;span&gt;&lt;span&gt; info myimage.jpg
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# extract the secret file
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;steghide&lt;&#x2F;span&gt;&lt;span&gt; extract&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -sf&lt;&#x2F;span&gt;&lt;span&gt; myimage.jpg
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Information about SVN (Subversion)</title>
+        <published>2024-01-07T00:00:00+00:00</published>
+        <updated>2024-01-07T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://gatosan.github.io/posts/svn-infos/" type="text/html"/>
+        <id>https://gatosan.github.io/posts/svn-infos/</id>
+        
+        <content type="html">&lt;h2 id=&quot;subversion-svn-information&quot;&gt;Subversion (SVN) information&lt;&#x2F;h2&gt;
+&lt;p&gt;Even if nowadays Git is the prefered version control system in software development, still some companies are using the older systems like subversion (SVN). As I had the opportunity to migrate a subversion based repository from on server instance to a new server location, I want to share my experience in this blog post.&lt;&#x2F;p&gt;
+&lt;p&gt;All the following commands assume, that you have access to the repository and have privilages to directly connect to the servers over SSH. To simplify the following section the first server holding the original repository will be assigned the name &lt;em&gt;server A&lt;&#x2F;em&gt;, the new target server is called &lt;em&gt;server B&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;As a first step login to &lt;em&gt;server A&lt;&#x2F;em&gt; over SSH and generate a dump file of the whole SVN repository with the follwing command.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;svnadmin&lt;&#x2F;span&gt;&lt;span&gt; dump &#x2F;path&#x2F;to&#x2F;repo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt; filename.dump
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;In this case the dump file contains all relevant information (tags, commits, branches, ...). After that the file can be transfered to &lt;em&gt;server B&lt;&#x2F;em&gt; with e.g. the scp command. From there the new location of the repository can be defined and the whole information can be integrated.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;svnadmin&lt;&#x2F;span&gt;&lt;span&gt; create &#x2F;path&#x2F;to&#x2F;new&#x2F;folder&#x2F;location
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;svnadmin&lt;&#x2F;span&gt;&lt;span&gt; load &#x2F;path&#x2F;to&#x2F;new&#x2F;folder&#x2F;location &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span&gt; filename.dump
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;To improve the procedure and save file size of the dump file, the output of the first command can be compressed. With this slight improvement up to 50% of file size can be saved.&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-bash &quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# compress the file on server A
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;svnadmin&lt;&#x2F;span&gt;&lt;span&gt; dump &#x2F;path&#x2F;to&#x2F;repo &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;gzip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -9 &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt; filename.dump.gz
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;font-style:italic;color:#5c6773;&quot;&gt;# on server B side, the file has to be uncompressed
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;gunzip&lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29718;&quot;&gt; -c&lt;&#x2F;span&gt;&lt;span&gt; filname.dump.gz &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f29668;&quot;&gt;| &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;svnadmin&lt;&#x2F;span&gt;&lt;span&gt; load &#x2F;path&#x2F;to&#x2F;new&#x2F;folder&#x2F;location
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Math Symbol Support Test</title>
+        <published>2023-01-06T00:00:00+00:00</published>
+        <updated>2023-01-06T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://gatosan.github.io/posts/math-symbols-test/" type="text/html"/>
+        <id>https://gatosan.github.io/posts/math-symbols-test/</id>
+        
+        <content type="html">&lt;h1 id=&quot;inline-math&quot;&gt;Inline Math&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;$(a+b)^2$ = $a^2 + 2ab + b^2$&lt;&#x2F;li&gt;
+&lt;li&gt;A polynomial P of degree d over $\mathbb{F}_p$ is an expression of the form
+$P(s) = a_0 + a_1 . s + a_2 . s^2 + ... + a_d . s^d$ for some
+$a_0,..,a_d \in \mathbb{F}_p$&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h1 id=&quot;displayed-math&quot;&gt;Displayed Math&lt;&#x2F;h1&gt;
+&lt;p&gt;$$
+p := (\sum_{k∈I}{c_k.v_k} + \delta_v.t(x))·(\sum_{k∈I}{c_k.w_k} + \delta_w.t(x)) − (\sum_{k∈I}{c_k.y_k} + \delta_y.t(x))
+$$&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;a-more-complex-example&quot;&gt;A more complex example&lt;&#x2F;h1&gt;
+&lt;p&gt;$$
+\sum_{i=1}^{N_K}{
+\begin{bmatrix}
+\left(\frac{\partial_R \mathbf{v}_s}{\partial \dot{\mathbf{s}}} \right)^T &amp;amp;
+\left(\frac{\partial_R \mathbf{\omega}_s}{\partial \dot{\mathbf{s}}} \right)^T
+\end{bmatrix}_i
+\begin{bmatrix}
+{}_R\dot{\mathbf{p}} + {}&lt;em&gt;R\tilde{\mathbf{\omega}}&lt;&#x2F;em&gt;{IR},{}_R\mathbf{p} - {}_R\mathbf{f}^e \
+{}_R\dot{\mathbf{L}} + {}&lt;em&gt;R\tilde{\mathbf{\omega}}&lt;&#x2F;em&gt;{IR},{}_R\mathbf{L} - {}_R\mathbf{M}^e
+\end{bmatrix}_i=0
+$$&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Table of Contents Test</title>
+        <published>2022-01-02T00:00:00+00:00</published>
+        <updated>2022-01-02T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://gatosan.github.io/posts/table-of-contents/" type="text/html"/>
+        <id>https://gatosan.github.io/posts/table-of-contents/</id>
+        
+        <content type="html">&lt;h1 id=&quot;heading-1&quot;&gt;Heading 1&lt;&#x2F;h1&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;heading-2&quot;&gt;Heading 2&lt;&#x2F;h2&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;heading-3&quot;&gt;Heading 3&lt;&#x2F;h3&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;heading-4&quot;&gt;Heading 4&lt;&#x2F;h4&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;heading-4-1&quot;&gt;Heading 4&lt;&#x2F;h4&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;heading-3-1&quot;&gt;Heading 3&lt;&#x2F;h3&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;heading-4-2&quot;&gt;Heading 4&lt;&#x2F;h4&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;heading-4-3&quot;&gt;Heading 4&lt;&#x2F;h4&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;heading-2-1&quot;&gt;Heading 2&lt;&#x2F;h2&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;heading-3-2&quot;&gt;Heading 3&lt;&#x2F;h3&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;heading-4-4&quot;&gt;Heading 4&lt;&#x2F;h4&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;heading-4-5&quot;&gt;Heading 4&lt;&#x2F;h4&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;heading-3-3&quot;&gt;Heading 3&lt;&#x2F;h3&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;heading-4-6&quot;&gt;Heading 4&lt;&#x2F;h4&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+&lt;h4 id=&quot;heading-4-7&quot;&gt;Heading 4&lt;&#x2F;h4&gt;
+&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed mollis augue, vel efficitur lacus. Pellentesque eu egestas mi. Etiam ultrices lectus sit amet aliquet ullamcorper. Praesent in erat quis est sagittis finibus. Etiam nec sapien in nulla interdum faucibus. Integer iaculis lorem quis arcu lobortis, non malesuada neque vehicula. Aenean nec tellus eu metus bibendum tempus. Sed rutrum urna ut commodo tempor. Vestibulum aliquet elit posuere turpis maximus condimentum. Sed urna libero, ornare eu tellus vitae, laoreet condimentum risus. Aenean elit lectus, mattis quis nibh nec, faucibus rutrum sapien. Sed iaculis consectetur mi, eget posuere turpis finibus et.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Markdown Test</title>
+        <published>2022-01-01T00:00:00+00:00</published>
+        <updated>2022-01-01T00:00:00+00:00</updated>
+        <author>
+          <name>Unknown</name>
+        </author>
+        <link rel="alternate" href="https://gatosan.github.io/posts/markdown/" type="text/html"/>
+        <id>https://gatosan.github.io/posts/markdown/</id>
+        
+        <content type="html">&lt;h2 id=&quot;code-block&quot;&gt;Code Block&lt;&#x2F;h2&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#0f1419;color:#bfbab0;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#ff7733;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ffb454;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#f07178;&quot;&gt;println!&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#c2d94c;&quot;&gt;&amp;quot;Hello World&amp;quot;&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bfbab0cc;&quot;&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;quote&quot;&gt;Quote&lt;&#x2F;h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Two things are infinite: the universe and human stupidity; and I&#x27;m not sure about the universe.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;Albert Einstein&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;code-tags&quot;&gt;Code tags&lt;&#x2F;h2&gt;
+&lt;p&gt;Lorem ipsum &lt;code&gt;dolor&lt;&#x2F;code&gt; sit amet, &lt;code&gt;consectetur adipiscing&lt;&#x2F;code&gt; elit. 
+&lt;code&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit.&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
